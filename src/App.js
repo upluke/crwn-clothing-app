@@ -1,23 +1,19 @@
-import logo from './logo.svg';
-import './App.css';
+ import './App.css';
 
 function App() {
+  const data=[
+    {id: "1", item:'hat', description:'this is a hat'},
+    {id: "2", item:'clothes', description:'this is a clothes'},
+    {id: "3", item:'shoes', description:'this is a shoe'}, 
+  ]
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {data.map((card)=>(
+        <div key={card.id}>
+          <h1>{card.item}</h1>
+          <p>{card.description}</p>
+        </div>
+      ))}   
     </div>
   );
 }
