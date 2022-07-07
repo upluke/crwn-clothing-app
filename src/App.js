@@ -1,17 +1,21 @@
- import './App.css';
+import './categories.styles.scss'
 
 function App() {
-  const data=[
-    {id: "1", item:'hat', description:'this is a hat'},
-    {id: "2", item:'clothes', description:'this is a clothes'},
-    {id: "3", item:'shoes', description:'this is a shoe'}, 
+  const categories=[
+    {id: "1", title:'hats' },
+    {id: "2", title:'Jackets'},
+    {id: "3", title:'Sneakers'}, 
+    {id: "3", title:'Womens'}
   ]
   return (
-    <div className="App">
-      {data.map((card)=>(
-        <div key={card.id}>
-          <h1>{card.item}</h1>
-          <p>{card.description}</p>
+    <div className="categories-container">
+      {categories.map(({id, title})=>(
+        <div className='category-container' key={id}>
+          <div className='background-image' />
+          <div className='category-body-container'>
+            <h1>{title}</h1>
+            <p>Shop now</p>
+          </div>
         </div>
       ))}   
     </div>
