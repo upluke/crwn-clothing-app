@@ -31,4 +31,7 @@ export const createUserDocumentFromAuth=async(userAuth)=>{ // this method receiv
     // 1. see if there is an existing document reference
     const userDocRef=doc(db, 'users', userAuth.uid) // 1st arg is database, 2nd arg is collections, 3rd is an identifier that helps get a document reference
     console.log(userDocRef)
+
+    const userSnapshot = await getDoc(userDocRef) // the snapshot is kind of like the data and also a specific kind of object
+    console.log(userSnapshot)
 }
