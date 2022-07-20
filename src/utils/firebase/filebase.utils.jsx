@@ -15,14 +15,15 @@ const firebaseConfig = {
   
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider =new GoogleAuthProvider()
+const googleProvider =new GoogleAuthProvider()
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
     prompt: "select_account" // every time somebody interacts with our provider, we want to always force them to select an account
 })
 
 export const auth = getAuth() // why auth just a funciton invocation without the new keyword, whereas GoogleAuthProvider is one. So GoogleAuthProviders is a class sometimes you want to generate multiple of these different providers because you might have different provider instances doing different things. Authentication on the other hand, the rules for authentication that communicaates with Firebase shoudl always be the same one for every applicaiton.
-export const signInWithGooglePopup=()=>signInWithPopup(auth, provider)
+export const signInWithGooglePopup=()=>signInWithPopup(auth, googleProvider)
+export const signInWithGoogleRedirect=()=>signInWithRedirect(auth, googleProvider)
 
 export const db =getFirestore() //directly points to our database 
 
