@@ -1,5 +1,5 @@
 import {initializeApp} from 'firebase/app'
-import {getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider} from 'firebase/auth'
+import {getAuth, signInWithRedirect, signInWithPopup, GoogleAuthProvider, createUserWithEmailAndPassword} from 'firebase/auth'
 // getDoc or setDoc mean get the data of Doc and set the data of Doc
 import {getFirestore, doc, getDoc, setDoc} from 'firebase/firestore'
 
@@ -29,6 +29,8 @@ export const db =getFirestore() //directly points to our database
 
 export const createUserDocumentFromAuth=async(userAuth)=>{ // this method receives some user authentication object 
     // take the data from authenticiation service and store that inside of fire store
+    if(!userAuth) return; // if we don't get userAuth, we dont' run the funciton
+
     // 1. see if there is an existing document reference
     const userDocRef=doc(db, 'users', userAuth.uid) // 1st arg is database, 2nd arg is collections, 3rd is an identifier that helps get a document reference
     console.log(userDocRef)
@@ -53,4 +55,10 @@ export const createUserDocumentFromAuth=async(userAuth)=>{ // this method receiv
     }
     // check if user data exists, return userDocRef
     return userDocRef;
+}
+
+
+export const createAuthUserWithEmailAndPassword=async (email, password)=>{
+    if(!email || !password) return; 
+    createUserWithEmailAndPassword(auth, email, password)
 }

@@ -1,4 +1,6 @@
 import { useState } from "react"
+import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/filebase.utils"
+
 
 const defaultForFields={
     displayName:'',
@@ -21,6 +23,10 @@ const SignUpForm =()=>{
     const handleSubmit=(event)=>{
         event.preventDefault()
         console.log(displayName,"---",email, "------",password,"----")
+        // 1. confirm the password matches 
+
+        // 2. see if we've authenticated taht suer with email and password. 
+        //Then we want to create a user document from what the createAuthUserWithEmailAndPassword returns
     }
 
     
