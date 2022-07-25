@@ -21,6 +21,7 @@ const SignUpForm =()=>{
         setFormFields({...formFields, [name]:value})
     }
 
+ 
     const handleSubmit=async (event)=>{
         event.preventDefault()
  
@@ -34,7 +35,7 @@ const SignUpForm =()=>{
         }
         try{
             const response=await createAuthUserWithEmailAndPassword(email, password)
-            console.log(response)
+            console.log(response.user)
         }catch(error){
             console.log('user creation encoutered an error', error)
         }
