@@ -1,3 +1,4 @@
+
 import { useState } from "react"
 import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/filebase.utils"
 
@@ -20,13 +21,24 @@ const SignUpForm =()=>{
         setFormFields({...formFields, [name]:value})
     }
 
-    const handleSubmit=(event)=>{
+    const handleSubmit=async (event)=>{
         event.preventDefault()
-        console.log(displayName,"---",email, "------",password,"----")
+ 
         // 1. confirm the password matches 
-
         // 2. see if we've authenticated taht suer with email and password. 
         //Then we want to create a user document from what the createAuthUserWithEmailAndPassword returns
+        if (password!==confirmPassword){
+            alert("passwords do not match")
+            return 
+          
+        }
+        try{
+            const response=await createAuthUserWithEmailAndPassword(email, password)
+            console.log(response)
+        }catch(error){
+            console.log('user creation encoutered an error', error)
+        }
+     
     }
 
     
@@ -42,7 +54,7 @@ const SignUpForm =()=>{
                 <input type="password" required  autoComplete="on" onChange={handleChange} name="password" value={password}/>
                 <label>Comfirm Password</label>
                 <input type="password" required  autoComplete="on" onChange={handleChange} name="confirmPassword" value={confirmPassword}/>
-                <button type="submit">Submit</button>
+                <button type="submit">Sign Up</button>
             </form>
         </div>
     )
