@@ -27,7 +27,7 @@ export const signInWithGoogleRedirect=()=>signInWithRedirect(auth, googleProvide
 
 export const db =getFirestore() //directly points to our database 
 
-export const createUserDocumentFromAuth=async(userAuth)=>{ // this method receives some user authentication object 
+export const createUserDocumentFromAuth=async(userAuth, additionalInformation ={})=>{ // this method receives some user authentication object 
     // take the data from authenticiation service and store that inside of fire store
     if(!userAuth) return; // if we don't get userAuth, we dont' run the funciton
 
@@ -39,6 +39,16 @@ export const createUserDocumentFromAuth=async(userAuth)=>{ // this method receiv
     console.log(userSnapshot)
 
     // if user data doesn't exist, create/set the document with the data from userAuth in my collection
+    // * Note: since we don't actually create a display name in our authentication method, but we did it in our form.
+    // in thise particualr case, we going to store a display name inside of our database instead.  
+
+    // In case there's no displayName, we create an addtionatalInformation argument (empty obj by default: addtionalInformation={}), 
+    // then we'll spread this object in after all of those filds (eg: displayName, email, createdAt) have been filled from 
+    // any previous variable setting. SO if dispaly name on user off, then it will get spread thorough.  
+    // So if userAuth doesn't have a displayName, and displayName will get set to null, but then 
+    // we then add the additonal information ourselves, then it looks like: addtionalInformation={displayName: 'bonu'},
+    // and this is gonna overwrite that null value, so we do have a final display name inside of our user document
+    // 
     if(!userSnapshot.exists()){
         const {displayName, email} = userAuth;
         const createdAt =new Date();
@@ -47,7 +57,8 @@ export const createUserDocumentFromAuth=async(userAuth)=>{ // this method receiv
             await setDoc(userDocRef, {
                 displayName,
                 email,
-                createdAt
+                createdAt,
+                ...additionalInformation,
             })
         }catch(error){
             console.log('error creating the user', error.message)

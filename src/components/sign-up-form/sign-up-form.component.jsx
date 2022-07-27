@@ -26,7 +26,7 @@ const SignUpForm =()=>{
         event.preventDefault()
  
         // 1. confirm the password matches 
-        // 2. see if we've authenticated taht suer with email and password. 
+      
         //Then we want to create a user document from what the createAuthUserWithEmailAndPassword returns
         if (password!==confirmPassword){
             alert("passwords do not match")
@@ -34,8 +34,8 @@ const SignUpForm =()=>{
           
         }
         try{
-            const response=await createAuthUserWithEmailAndPassword(email, password)
-            console.log(response.user)
+            const {user}=await createAuthUserWithEmailAndPassword(email, password)  
+            console.log(user)
         }catch(error){
             console.log('user creation encoutered an error', error)
         }
@@ -62,3 +62,7 @@ const SignUpForm =()=>{
 }
 
 export default SignUpForm
+
+
+
+
