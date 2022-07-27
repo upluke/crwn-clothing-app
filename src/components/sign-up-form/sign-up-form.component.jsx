@@ -16,14 +16,12 @@ const SignUpForm =()=>{
     const [formFields, setFormFields] =useState(defaultForFields)
     const {displayName, email, password, confirmPassword} = formFields
 
-   
+    const resetFormFields=()=>{
+        setFormFields(defaultForFields)
+    }
  
     const handleSubmit=async (event)=>{
         event.preventDefault()
- 
-        // 1. confirm the password matches 
-      
-        //Then we want to create a user document from what the createAuthUserWithEmailAndPassword returns
         if (password!==confirmPassword){
             alert("passwords do not match")
             return 
@@ -32,6 +30,7 @@ const SignUpForm =()=>{
         try{
             const {user}=await createAuthUserWithEmailAndPassword(email, password)  
             await createUserDocumentFromAuth(user, {displayName})
+            resetFormFields()
         }catch(error){
             if (error.code === 'auth/email-already-in-use'){ // customize an error code for duplicated emails
                 alert('Cannot create user, email already in use')
