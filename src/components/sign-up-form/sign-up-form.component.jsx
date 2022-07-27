@@ -1,6 +1,6 @@
 
 import { useState } from "react"
-import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/filebase.utils"
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/filebase.utils"
 
 
 const defaultForFields={
@@ -16,11 +16,7 @@ const SignUpForm =()=>{
     const [formFields, setFormFields] =useState(defaultForFields)
     const {displayName, email, password, confirmPassword} = formFields
 
-    const handleChange=(event)=>{
-        const {name, value} = event.target 
-        setFormFields({...formFields, [name]:value})
-    }
-
+   
  
     const handleSubmit=async (event)=>{
         event.preventDefault()
@@ -35,11 +31,21 @@ const SignUpForm =()=>{
         }
         try{
             const {user}=await createAuthUserWithEmailAndPassword(email, password)  
-            console.log(user)
+            await createUserDocumentFromAuth(user, {displayName})
         }catch(error){
-            console.log('user creation encoutered an error', error)
+            if (error.code === 'auth/email-already-in-use'){ // customize an error code for duplicated emails
+                alert('Cannot create user, email already in use')
+            }else{
+               console.log('user creation encoutered an error', error)
+            }
+            
         }
      
+    }
+
+    const handleChange=(event)=>{
+        const {name, value} = event.target 
+        setFormFields({...formFields, [name]:value})
     }
 
     
