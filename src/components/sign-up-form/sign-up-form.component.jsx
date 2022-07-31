@@ -54,6 +54,18 @@ const SignUpForm =()=>{
         <div>
             <h1>Sign up with your email and password</h1>
             <form onSubmit={handleSubmit}>
+                {/* (^) Another method: pass input args as an obj: */}
+                {/* <FormInput 
+                    label="Display name" 
+                    inputOptions={{
+                        type:"text",
+                        required:true,
+                        onChange:handleChange,
+                        name:"displayName",
+                        value:displayName
+                    }}
+                   /> */}
+
                 <FormInput label="Display name" type="text" required onChange={handleChange} name="displayName" value={displayName}/>
                 <FormInput label="Email" type="email" required onChange={handleChange} name="email" value={email}/>
                 <FormInput label="Password" type="password" required  autoComplete="on" onChange={handleChange} name="password" value={password}/>
