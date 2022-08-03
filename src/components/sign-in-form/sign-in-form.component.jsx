@@ -1,6 +1,6 @@
 import { useState } from "react"
 import FormInput from "../form-input/form-input.component"
-
+import Button from "../button/button.component"
 const initValue={
     email:'',
     password:''
@@ -17,11 +17,13 @@ const SignInForm=()=>{
     }
 
     return(
-        <div>
+        <form>
         <h1>Sigin form</h1>
-        <FormInput label="email" type="email" value={email} name="email" onChange={handleChange} />
+        <FormInput label="email" type="email" value={email} name="mail" onChange={handleChange} />
         <FormInput label="password" type="password" value={password} name="password" onChange={handleChange} />
-        </div>
+        <Button>SIGN IN</Button>
+        <Button buttonType="google">SIGN IN WITH GOOGLE</Button>
+        </form>
       
     )
 }
