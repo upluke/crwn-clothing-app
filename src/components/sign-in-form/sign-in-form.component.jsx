@@ -1,31 +1,60 @@
+
 import { useState } from "react"
 import FormInput from "../form-input/form-input.component"
 import Button from "../button/button.component"
-const initValue={
+import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/filebase.utils"
+import "./sign-in-form.styles.scss"
+
+
+const defaultForFields={
     email:'',
     password:''
 }
 
-const SignInForm=()=>{
-    
-    const [formFields, setFormFields]=useState(initValue)
-    const {email, password}= formFields
-    
+const SignInForm =()=>{
 
-    const handleChange=(e)=>{
-        setFormFields({...formFields, [e.target.name]:e.target.value})
+
+    const [formFields, setFormFields] =useState(defaultForFields)
+    const {email, password} = formFields
+
+    const resetFormFields=()=>{
+        setFormFields(defaultForFields)
+    }
+ 
+    const handleSubmit=async (event)=>{
+        event.preventDefault()
+    
+        try{
+      
+            resetFormFields()
+        }catch(error){
+          
+            
+        }
+     
     }
 
+    const handleChange=(event)=>{
+        const {name, value} = event.target 
+        setFormFields({...formFields, [name]:value})
+    }
+
+    
     return(
-        <form>
-        <h1>Sigin form</h1>
-        <FormInput label="email" type="email" value={email} name="mail" onChange={handleChange} />
-        <FormInput label="password" type="password" value={password} name="password" onChange={handleChange} />
-        <Button>SIGN IN</Button>
-        <Button buttonType="google">SIGN IN WITH GOOGLE</Button>
-        </form>
-      
+        <div className="sign-up-container">
+            <h2>Already have an account?</h2>
+            <span>Sign in with your email and password</span>
+            <form onSubmit={handleSubmit}>
+                <FormInput label="Email" type="email" required onChange={handleChange} name="email" value={email}/>
+                <FormInput label="Password" type="password" required  autoComplete="on" onChange={handleChange} name="password" value={password}/>
+                <Button type="submit">Sign In</Button>
+            </form>
+        </div>
     )
 }
 
 export default SignInForm
+
+
+
+
