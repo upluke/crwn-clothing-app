@@ -65,7 +65,7 @@ const SignInForm =()=>{
                 <FormInput label="Password" type="password" required  autoComplete="on" onChange={handleChange} name="password" value={password}/>
                 <div className="buttons-container">
                     <Button type="submit">Sign In</Button>
-                    <Button buttonType="google" onClick={signInWithGoogle}>Google Sign in</Button>
+                    <Button type="button" buttonType="google" onClick={signInWithGoogle}>Google Sign in</Button>
                 </div>
             </form>
         </div>
