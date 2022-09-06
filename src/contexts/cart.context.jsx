@@ -2,7 +2,8 @@ import {createContext, useState} from 'react'
 import { useHref } from 'react-router-dom'
 
 
-const addCartItem =(cartItems, productToAdd)=>{
+const addCartItem =(cartItems, productToAdd, quantity, setQuantity)=>{ // -------------------------- 
+   setQuantity(quantity+productToAdd.quantity)// -------------------------- 
     // find if cartItems contains productToAdd
    const existingCartItem=cartItems.find((cartItem)=>cartItem.id===productToAdd.id)
     // If found, increment quantity
@@ -16,23 +17,30 @@ const addCartItem =(cartItems, productToAdd)=>{
     return [...cartItems, {...productToAdd, quantity:1}]
 }
 
+
+
+
 export const CartContext = createContext({
     isCartOpen: false,
     setIsCartOpen:()=>{},
     cartItems:[],
-    addItemToCart:()=>{}
+    addItemToCart:()=>{},
+    quentity:0,
+    setQuantity:()=>{},
+
 })
 
 
 export const CartProvider =({children})=>{
     const [isCartOpen, setIsCartOpen] =useState(false)
     const [cartItems, setCartItems] =useState([])
+    const [quantity, setQuantity] =useState(0) // -------------------------- 
 
     const addItemToCart =(productToAdd) =>{
-        setCartItems(addCartItem(cartItems, productToAdd))
+        setCartItems(addCartItem(cartItems, productToAdd, quantity, setQuantity)) // -------------------------- 
     }
 
-    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems}
+    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, quantity}// -------------------------- 
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

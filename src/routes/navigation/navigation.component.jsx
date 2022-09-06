@@ -17,7 +17,7 @@ import './navigation.styles.scss'
 
 const Navigation=()=>{
     const {currentUser} =useContext(UserContext)
-    const {isCartOpen} =useContext(CartContext)
+    const {isCartOpen, quentity} =useContext(CartContext)
  
  
 
@@ -34,7 +34,7 @@ const Navigation=()=>{
                     ):(
                         <Link className='nav-link' to='/auth' >Sign-in</Link>
                     )}
-                <CartIcon />
+                <CartIcon quentity={quentity} />
                </div>
                {isCartOpen && <CartDropDown/>}
 
