@@ -23,6 +23,8 @@ const Navigation=()=>{
 
     return(
         <Fragment>
+           
+            <Link to='/checkout'> Checkout Test </Link>  {/* ---------- */}
             <div className='navigation'>
                 <Link className='logo-container' to='/'>
                     <CrownLogo className='logo' />
