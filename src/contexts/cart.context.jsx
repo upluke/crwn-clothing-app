@@ -17,6 +17,13 @@ const addCartItem =(cartItems, productToAdd)=>{
     return [...cartItems, {...productToAdd, quantity:1}]
 }
 
+// -------------------------
+const editCartItem=(cartItems, id, number)=>{
+   return  cartItems.map(item=>
+    item.id===id?{...item, quantity: item.quantity+number}:item
+)}
+     
+
 
 
 
@@ -43,8 +50,12 @@ export const CartProvider =({children})=>{
     const addItemToCart =(productToAdd) =>{
         setCartItems(addCartItem(cartItems, productToAdd))  
     }
+    // -----------------------
+    const editItemAddedToData=(id, number)=>{
+        setCartItems(editCartItem(cartItems, id, number))
+    }
 
-    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount}  
+    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount, editItemAddedToData} // ---------
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
