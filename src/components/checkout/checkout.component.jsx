@@ -2,7 +2,8 @@
 import {useState, useContext } from "react"
 import { CartContext } from "../../contexts/cart.context"
 
-const CheckOut =()=>{
+import './checkout.styles.scss'
+const Checkout =()=>{
     const {cartItems, cartCount,editItemAddedToData} =useContext(CartContext)
     // const {currentQuantity, setCurrentQuantity} = useState()
 
@@ -25,4 +26,4 @@ const CheckOut =()=>{
     )
 }
 
-export default CheckOut
+export default Checkout 
