@@ -4,7 +4,7 @@ import { CartContext } from "../../contexts/cart.context"
 
 import './checkout.styles.scss'
 const Checkout =()=>{
-    const {cartItems, cartCount,addCartItem} =useContext(CartContext)
+    const {cartItems, cartCount,addItemToCart} =useContext(CartContext)
     // const {currentQuantity, setCurrentQuantity} = useState()
 
     return(
@@ -18,7 +18,8 @@ const Checkout =()=>{
                                 <span className='name'>{name}</span>
                                 <span className='price'>    {quantity} </span>
                                 <span >decrement</span>
-                                <span>increment</span>
+                                <br />
+                                <span onClick={()=>addItemToCart(cartItem)}>increment</span>
                             </div>
                      
                     </div>
