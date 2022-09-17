@@ -16,7 +16,7 @@ const CartDropDown=()=>{
     const goToCheckoutHandler=()=>{
         navigate('/checkout')
     }
-
+// 3:08
     return(
         <div className="cart-dropdown-container">
             <div className="cart-items">

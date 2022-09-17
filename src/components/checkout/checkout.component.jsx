@@ -4,24 +4,26 @@ import { CartContext } from "../../contexts/cart.context"
 
 import './checkout.styles.scss'
 const Checkout =()=>{
-    const {cartItems, cartCount,editItemAddedToData} =useContext(CartContext)
+    const {cartItems, cartCount,addCartItem} =useContext(CartContext)
     // const {currentQuantity, setCurrentQuantity} = useState()
 
     return(
         <div>
-            {cartItems.map(item=>(
-                        <div className='cart-item-container'>
-                        <img src={item.imageUrl} alt={`${item.name}`} />
-                        <div>
-                            <span className='name'>{item.name}</span>
-                            <span className='price'>    {item.quantity} ------- ${item.price}</span>
-                            <button onClick={editItemAddedToData(item.id, 1)} >+</button>
-                            <button onClick={editItemAddedToData(item.id, -1)} >-</button>
-                        </div>
+            {cartItems.map((cartItem)=>{
+                    const {id, name, quantity} = cartItem
+                    return (
+                        <div key={id} className='cart-item-container'>
+                            {/* <img src={imageUrl} alt={`${name}`} /> */}
+                            <div>
+                                <span className='name'>{name}</span>
+                                <span className='price'>    {quantity} </span>
+                                <span >decrement</span>
+                                <span>increment</span>
+                            </div>
                      
                     </div>
-                 
-                 ))}
+                    )
+                 })}
         </div>
     )
 }
