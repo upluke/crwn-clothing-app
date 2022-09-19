@@ -2,28 +2,21 @@ import {createContext, useState, useEffect} from 'react'
 import { useHref } from 'react-router-dom'
 
 
-const addCartItem =(cartItems, productToAdd)=>{ 
+const addCartItem =(cartItems, productToAdd, num=0)=>{ 
     
     // find if cartItems contains productToAdd
    const existingCartItem=cartItems.find((cartItem)=>cartItem.id===productToAdd.id)
+   console.log(">>>>", existingCartItem, productToAdd)
     // If found, increment quantity
     if (existingCartItem){
         return cartItems.map((cartItem)=>
             cartItem.id===productToAdd.id
-            ?{...cartItem, quantity: cartItem.quantity+1} : cartItem
+            ?{...cartItem, quantity: cartItem.quantity+1+num} : cartItem
         )
     }
     // return new array with modified cartItems/ new cart item
     return [...cartItems, {...productToAdd, quantity:1}]
 }
-
-// -------------------------
-const editCartItem=(cartItems, id, number)=>{
-   return  cartItems.map(item=>
-    item.id===id?{...item, quantity: item.quantity+number}:item
-)}
-     
-
 
 
 
@@ -47,15 +40,12 @@ export const CartProvider =({children})=>{
         setCartCount(newCartCount)
     }, [cartItems])
 
-    const addItemToCart =(productToAdd) =>{
-        setCartItems(addCartItem(cartItems, productToAdd))  
+    const addItemToCart =(productToAdd, num) =>{
+        setCartItems(addCartItem(cartItems, productToAdd, num))  
     }
-    // -----------------------
-    const editItemAddedToData=(id, number)=>{
-        setCartItems(editCartItem(cartItems, id, number))
-    }
+   
 
-    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount, editItemAddedToData} // ---------
+    const value ={isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount}  
 
     return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

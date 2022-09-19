@@ -20,6 +20,7 @@ const Checkout =()=>{
                                 <span >decrement</span>
                                 <br />
                                 <span onClick={()=>addItemToCart(cartItem)}>increment</span>
+                                <span onClick={()=>addItemToCart(cartItem,-2)}>decrement</span>
                             </div>
                      
                     </div>
