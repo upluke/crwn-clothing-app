@@ -6,7 +6,7 @@ const addCartItem =(cartItems, productToAdd)=>{
     
     // find if cartItems contains productToAdd
    const existingCartItem=cartItems.find((cartItem)=>cartItem.id===productToAdd.id)
-   console.log(">>>>", existingCartItem, productToAdd)
+  
     // If found, increment quantity
     if (existingCartItem){
         return cartItems.map((cartItem)=>
@@ -28,6 +28,10 @@ const removeCartItem=(cartItems, cartItemToRemove)=>{
         
     }
     // return back cartitems with cart item with reduced quantity
+    return cartItems.map((cartItem)=>
+    cartItem.id===cartItemToRemove.id
+    ?{...cartItem, quantity: cartItem.quantity-1} : cartItem
+)
 }
 
 
